@@ -50,7 +50,7 @@ void generateRandomArray(int arr[], int n)
 // Main program to perform sorting and plot graph
 int main()
 {
-    FILE *file = fopen("sorting_times.dat", "w");
+    FILE *file = fopen("quickSortData.txt", "w");
     if (file == NULL)
     {
         printf("Error opening file!\n");
@@ -95,7 +95,7 @@ int main()
         fprintf(gnuplotPipe, "set ytics nomirror\n");
         fprintf(gnuplotPipe, "set y2tics\n");
         fprintf(gnuplotPipe, "set grid\n");
-        fprintf(gnuplotPipe, "plot 'sorting_times.dat' using 1:2 with linespoints title 'Time Complexity', 'sorting_times.dat' using 1:3 axes x1y2 with linespoints title 'Space Complexity'\n");
+        fprintf(gnuplotPipe, "plot 'quickSortData.txt' using 1:2 with linespoints title 'Time Complexity', 'quickSortData.txt' using 1:3 axes x1y2 with linespoints title 'Space Complexity'\n");
         pclose(gnuplotPipe);
     }
     else
