@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Function to merge two subarrays
 void merge(int arr[], int l, int m, int r)
 {
     int i, j, k;
@@ -49,7 +48,6 @@ void merge(int arr[], int l, int m, int r)
     }
 }
 
-// Function to implement merge sort
 void mergeSort(int arr[], int l, int r)
 {
     if (l < r)
@@ -63,7 +61,6 @@ void mergeSort(int arr[], int l, int r)
     }
 }
 
-// Function to generate a random array
 void generateRandomArray(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -108,7 +105,6 @@ int main()
 
     fclose(file);
 
-    // Open Gnuplot and plot
     FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
     if (gnuplotPipe)
     {
