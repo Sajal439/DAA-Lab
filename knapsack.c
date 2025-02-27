@@ -1,73 +1,54 @@
 #include <stdio.h>
 
-struct Item
+void knapsack(int n, float weight[], float profit[], float capacity)
 {
-    int weight;
-    int value;
-};
+    float x[20], totalProfit = 0;
+    int i, j, u;
+    u = capacity;
 
-void knapsack(struct Item items[], int n, int max_capacity)
-{
-    int current_weight = 0;
-    float current_value = 0.0;
-    float ratio[n];
+    for (i = 0; i < n; i++)
+        x[i] = 0.0;
 
-    for (int i = 0; i < n; i++)
-        ratio[i] = (float)items[i].value / items[i].weight;
-
-    for (int i = 0; i < n - 1; i++)
+    for (i = 0; i < n; i++)
     {
-        for (int j = 0; j < n - i - 1; j++)
-        {
-            if (ratio[j] < ratio[j + 1])
-            {
-                float temp_ratio = ratio[j];
-                ratio[j] = ratio[j + 1];
-                ratio[j + 1] = temp_ratio;
-
-                struct Item temp_item = items[j];
-                items[j] = items[j + 1];
-                items[j + 1] = temp_item;
-            }
-        }
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        if (current_weight + items[i].weight <= max_capacity)
-        {
-            current_weight += items[i].weight;
-            current_value += items[i].value;
-        }
+        if (weight[i] > u)
+            break;
         else
         {
-            int remaining_capacity = max_capacity - current_weight;
-            current_value += items[i].value * ((float)remaining_capacity / items[i].weight);
-            break;
+            x[i] = 1.0;
+            totalProfit += profit[i];
+            u -= weight[i];
         }
     }
 
-    printf("Maximum value in knapsack = %.2f\n", current_value);
+    if (i < n)
+        x[i] = u / weight[i];
+
+    totalProfit += (x[i] * profit[i]);
+
+    printf("\nTotal profit: %f\n", totalProfit);
 }
 
 int main()
 {
-    int n;
+    float weight[20], profit[20], capacity;
+    int n, i;
+
     printf("Enter the number of items: ");
     scanf("%d", &n);
 
-    struct Item items[n];
-    for (int i = 0; i < n; i++)
-    {
-        printf("Enter weight and value of item %d: ", i + 1);
-        scanf("%d %d", &items[i].weight, &items[i].value);
-    }
+    printf("Enter the weights of the items: ");
+    for (i = 0; i < n; i++)
+        scanf("%f", &weight[i]);
 
-    int max_capacity;
-    printf("Enter the maximum capacity of the knapsack: ");
-    scanf("%d", &max_capacity);
+    printf("Enter the profits of the items: ");
+    for (i = 0; i < n; i++)
+        scanf("%f", &profit[i]);
 
-    knapsack(items, n, max_capacity);
+    printf("Enter the capacity of knapsack: ");
+    scanf("%f", &capacity);
+
+    knapsack(n, weight, profit, capacity);
 
     return 0;
 }
